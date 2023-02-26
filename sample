@@ -1,0 +1,23 @@
+import torch
+import torch.nn as nn
+import torchvision.models as models
+from transformers import ViTModel, ViTConfig
+
+class EnsembleModel(nn.Module):
+    def __init__(self, num_classes, num_heads):
+        super(EnsembleModel, self).__init__()
+        self.vit = ViTModel(ViTConfig(hidden_size=768, num_attention_heads=num_heads))
+        self.effnet = models.efficientnet_b3(pretrained=True)
+        self.conv = nn.Conv2d(1536, num_classes, kernel_size=1)
+        
+    def forward(self, x):
+        vit_output = self.vit(x)
+        effnet_output = self.effnet(x)
+        output = torch.cat([vit_output.last_hidden_state, effnet_output], dim=1)
+        output = self.conv(output)
+        return output
+
+model = EnsembleModel(num_classes=2, num_heads=8)
+criterion = nn.BCELoss()
+optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=0.01)
+scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=2, eta_min=1e-7)
