@@ -35,12 +35,8 @@ hubmap-hpa-hacking-the-human-body/
 │  ├─ coat_daformer_semantic_segmentation_raw_coat_lite_small_1088/
 │  ├─ segformer_semantic_segmentation_raw_mitb3_768
 │  ├─ unet_semantic_segmentation_pretraining
-│  ├─ unet_semantic_segmentation_raw_efficientnetb2_1184
 │  ├─ unet_semantic_segmentation_raw_efficientnetb3_1088
-│  ├─ unet_semantic_segmentation_raw_efficientnetb4_992
-│  ├─ unet_semantic_segmentation_raw_efficientnetb5_864
 │  ├─ unet_semantic_segmentation_raw_efficientnetb6_768
-│  ├─ unet_semantic_segmentation_raw_efficientnetb7_672
 ├─ notebook/
 ├─ resources/
 ├─ src/
@@ -58,13 +54,9 @@ Internal and external datasets are inside the data directory.
 
 Data analysis and visualizations are inside the eda directory.
 
-Logs are inside the logs directory
-
 Pre-trained model weights and model configurations are inside the models directory.
 
 Notebooks are inside the notebook directory.
-
-Papers and other resources are inside the resources directory.
 
 Python modules are inside src directory.
 
@@ -94,12 +86,8 @@ GPU: NVIDIA GeForce RTX 3090
 * CoaT lite-medium encoder (ImageNet pretrained) and DAFormer decoder trained on raw images of size 768
 * CoaT lite-small encoder (ImageNet pretrained) and DAFormer decoder trained on raw images of size 1088
 * SegFormer MiT-B3 (ADE20k pretrained) trained on raw images of size 768
-* UNet EfficientNet-B2 encoder (ImageNet pretrained) trained on raw images of size 1184
 * UNet EfficientNet-B3 encoder (ImageNet pretrained) trained on raw images of size 1088
-* UNet EfficientNet-B4 encoder (ImageNet pretrained) trained on raw images of size 992
-* UNet EfficientNet-B5 encoder (ImageNet pretrained) trained on raw images of size 864
 * UNet EfficientNet-B6 encoder (ImageNet pretrained) trained on raw images of size 768
-* UNet EfficientNet-B7 encoder (ImageNet pretrained) trained on raw images of size 672
 
 ## Validation
 
@@ -158,42 +146,15 @@ Sigmoid function is applied to logits at this stage because model predictions we
 * UNet EfficientNet-B3 encoder (ImageNet pretrained) trained on raw images of size 1088
 * UNet EfficientNet-B6 encoder (ImageNet pretrained) trained on raw images of size 768
 
-Different ensemble weights are used for each organ type and those weights are found by trial and error.
+The ensemble weights used for each organ type and those weights are found by trial and error method.
 
-**Kidney**:
+**Kidney**, **Prostate**, **Spleen**, **Large Intestine**, ** Lung**:
   * UNet EfficientNet-B3: 0.20
   * UNet EfficientNet-B6: 0.25
   * SegFormer MiT-B3: 0.10
   * CoaT lite small: 0.20
   * CoaT lite medium: 0.25
 
-**Prostate**:
-  * UNet EfficientNet-B3: 0.20
-  * UNet EfficientNet-B6: 0.25
-  * SegFormer MiT-B3: 0.15
-  * CoaT lite small: 0.15
-  * CoaT lite medium: 0.25
-
-**Spleen**:
-  * UNet EfficientNet-B3: 0.15
-  * UNet EfficientNet-B6: 0.25
-  * SegFormer MiT-B3: 0.15
-  * CoaT lite small: 0.20
-  * CoaT lite medium: 0.25
-
-**Large Intestine**:
-  * UNet EfficientNet-B3: 0.20
-  * UNet EfficientNet-B6: 0.25
-  * SegFormer MiT-B3: 0.10
-  * CoaT lite small: 0.20
-  * CoaT lite medium: 0.25
-
-**Lung**:
-  * UNet EfficientNet-B3: 0.20
-  * UNet EfficientNet-B6: 0.70
-  * SegFormer MiT-B3: 0.0
-  * CoaT lite small: 0.0
-  * CoaT lite medium: 0.10
 
 ## Post-processing
 
@@ -210,23 +171,4 @@ Thresholds are found by trial and error.
 
 ## Results
 
-Quantitative results are provided as cross-validation and public leaderboard scores.
-Public leaderboard scores of both HPA-HuBMAP samples and only HuBMAP samples are tracked.
-
-|                      | Cross-Validation | Public Leaderboard (HPA and HuBMAP) | Public Leaderboard (HuBMAP) |
-|----------------------|------------------|-------------------------------------|-----------------------------|
-| UNet EfficientNet-B3 | 0.7821           | 0.79                                | 0.58                        |
-| UNet EfficientNet-B6 | 0.7809           | 0.81                                | 0.59                        |
-| SegFormer MiT-B3     | 0.7765           | 0.78                                | 0.58                        |
-| CoaT lite small      | 0.7857           | 0.80                                | 0.58                        |
-| CoaT lite medium     | 0.7841           | 0.81                                | 0.59                        |
-| Ensemble             |                  | 0.82                                | 0.59                        |
-
-Qualitative results are provided as predictions visualizations of randomly selected samples for each organ type and the single test image.
-
-![hpa_kidney_prediction](static/hpa_kidney_predictions.png "hpa_kidney_prediction")
-![hpa_prostate_prediction](static/hpa_prostate_predictions.png "hpa_prostate_prediction")
-![hpa_spleen_prediction](static/hpa_spleen_predictions.png "hpa_spleen_prediction")
-![hpa_largeintestine_prediction](static/hpa_largeintestine_predictions.png "hpa_largeintestine_prediction")
-![hpa_lung_prediction](static/hpa_lung_predictions.png "hpa_lung_prediction")
-![hubmap_spleen_prediction](static/hubmap_spleen_predictions.png "hubmap_spleen_prediction")
+Are given in Results directory.
